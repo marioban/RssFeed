@@ -20,7 +20,6 @@ FeedRss is an iOS application that allows users to search, view, and manage RSS 
 - **MVVM Architecture**: Structured codebase with separation of views, view models, and services.
 
 ## Screenshots
-_(Add screenshots of your app here if possible)_
 
 ## Architecture
 
