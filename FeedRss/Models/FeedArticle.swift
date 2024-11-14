@@ -9,15 +9,17 @@ import Foundation
 import SwiftData
 
 @Model
-class FeedArticle {
+class FeedArticle: Identifiable {
     var title: String
     var imageUrl: String?
     var articleDescription: String?
-    var link: String
+    var link: String?
     var publishedDate: Date?
-    @Relationship var rssFeed: RssFeed
+    var isFavorite: Bool = false
     
-    init(title: String, imageUrl: String? = nil, articleDescription: String? = nil, link: String, publishedDate: Date? = nil, rssFeed: RssFeed) {
+    weak var rssFeed: RssFeed?
+    
+    init(title: String, imageUrl: String? = nil, articleDescription: String? = nil, link: String? = nil, publishedDate: Date? = nil, rssFeed: RssFeed) {
         self.title = title
         self.imageUrl = imageUrl
         self.articleDescription = articleDescription

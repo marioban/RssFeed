@@ -15,7 +15,7 @@ struct SplashScreen: View {
     var body: some View {
         VStack {
             if isActive {
-                SearchView()
+                MainTabView()
                     .transition(.slide)
             } else {
                 ZStack {
