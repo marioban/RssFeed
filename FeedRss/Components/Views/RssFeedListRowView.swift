@@ -5,6 +5,7 @@
 //  Created by Mario Ban on 13.11.2024..
 //
 import SwiftUI
+import SwiftData
 
 struct RssFeedListRowView: View {
     var feed: RssFeed
@@ -15,8 +16,8 @@ struct RssFeedListRowView: View {
                 AsyncImage(url: imageUrl) { image in
                     image
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 25, height: 25)
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
                 } placeholder: {
                     Rectangle()
                         .fill(Color.gray.opacity(0.3))

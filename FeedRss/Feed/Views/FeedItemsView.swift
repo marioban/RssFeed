@@ -10,38 +10,35 @@ import SwiftUI
 struct FeedItemsView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel: FeedItemsViewModel?
-
+    
     let feed: RssFeed
     let feedItems: [FeedArticle]
     
     var body: some View {
-        Group {
+        ZStack {
+            Color(red: 0.059, green: 0.071, blue: 0.114)
+                .ignoresSafeArea()
+            
             if let viewModel = viewModel {
-                List {
-                    HeaderRssFeed(feed: viewModel.feed)
-                    
-                    ForEach(viewModel.feedItems) { item in
-                        ArticleCardView(feedItem: item)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .cornerRadius(12)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button {
-                                    viewModel.toggleFavorite(for: item)
-                                } label: {
-                                    Label(
-                                        item.isFavorite ? "Remove Favorite" : "Favorite",
-                                        systemImage: item.isFavorite ? "star.slash" : "star"
-                                    )
-                                }
-                                .tint(item.isFavorite ? .red : .yellow)
-                            }
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        HeaderRssFeed(feed: viewModel.feed)
+                            .padding(.bottom, 16)
+                        
+                        ForEach(viewModel.feedItems) { item in
+                            ArticleCardView(feedItem: item)
+                                .padding(.horizontal)
+                                .cornerRadius(12)
+                                .shadow(radius: 3)
+                        }
                     }
+                    .padding(.vertical)
                 }
-                .listStyle(.inset)
                 .navigationTitle("\(viewModel.feed.title) Articles")
+                .foregroundColor(.white) // Ensures text appears in white
             } else {
-                Text("Loading...") // or a progress view
+                Text("Loading...")
+                    .foregroundColor(.white)
                     .onAppear {
                         self.viewModel = FeedItemsViewModel(feed: feed, feedItems: feedItems, modelContext: modelContext)
                     }

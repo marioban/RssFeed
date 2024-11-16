@@ -23,6 +23,7 @@ struct RssFeedListView: View {
                     .listRowBackground(Color.clear)
             }
         }
+        .listRowSeparator(.hidden)
         .scrollContentBackground(.hidden)
         .background(Color.clear)
         .alert("Error", isPresented: $viewModel.showAlert) {
@@ -33,11 +34,13 @@ struct RssFeedListView: View {
         .onAppear {
             viewModel.modelContext = modelContext 
         }
+        .customBackground()
     }
     
     private func feedRow(for feed: RssFeed) -> some View {
         NavigationLink(destination: FeedItemsView(feed: feed, feedItems: feed.articles)) {
             RssFeedListRowView(feed: feed)
+                .customBackground()
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             deleteButton(for: feed)

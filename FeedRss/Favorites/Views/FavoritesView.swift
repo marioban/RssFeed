@@ -13,62 +13,44 @@ struct FavoritesView: View {
     @State private var showFavoriteFeeds = true
     @Query(filter: #Predicate { $0.isFavorite == true }, sort: \RssFeed.title) private var favoriteFeeds: [RssFeed]
     @Query(filter: #Predicate { $0.isFavorite == true }, sort: \FeedArticle.title) private var favoriteArticles: [FeedArticle]
+    @State private var pickFavorite = 0
+    
     
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
-                    Button("Favorite Feeds") {
-                        showFavoriteFeeds = true
+                    Picker("", selection: $pickFavorite) {
+                        Text("Favorite Feeds").tag(0)
+                        Text("Favorite Articles").tag(1)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(showFavoriteFeeds ? .blue : .gray)
-                    
-                    Button("Favorite Articles") {
-                        showFavoriteFeeds = false
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(!showFavoriteFeeds ? .blue : .gray)
+                    .pickerStyle(.segmented)
                 }
                 .padding()
                 
-                if showFavoriteFeeds {
-                    List(favoriteFeeds) { feed in
-                        NavigationLink(destination: FeedItemsView(feed: feed, feedItems: feed.articles)) {
-                            RssFeedListRowView(feed: feed)
-                        }
-                        .listStyle(.inset)
+                if pickFavorite == 0 {
+                    if favoriteFeeds.isEmpty {
+                        FavoritesEmptyStateView(imageName: "newspaper", message: "No favorite feeds found.")
+                    } else {
+                        FavoriteFeedsListView(feeds: favoriteFeeds)
                     }
                 } else {
                     if favoriteArticles.isEmpty {
-                        Text("No favorite articles found.")
-                            .foregroundColor(.gray)
-                            .padding()
+                        FavoritesEmptyStateView(imageName: "magnifyingglass", message: "No favorite articles found.")
                     } else {
-                        List(favoriteArticles) { article in
-                            ArticleCardView(feedItem: article)
-                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                    Button(role: .destructive) {
-                                        deleteFavorite(article)
-                                    } label: {
-                                        Label("Remove Favorite", systemImage: "star.slash")
-                                    }
-                                }
-                        }
-                        .listStyle(.inset)
+                        FavoriteArticlesListView(articles: favoriteArticles)
                     }
                 }
             }
-            .navigationTitle("Favorites")
-        }
-    }
-    
-    private func deleteFavorite(_ article: FeedArticle) {
-        article.isFavorite = false
-        do {
-            try modelContext.save()
-        } catch {
-            print("Failed to update favorite status: \(error)")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("Favorites")
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundColor(.white)
+                }
+            }
+            .customBackground()
         }
     }
 }

@@ -9,17 +9,27 @@ import SwiftUI
 
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
-
+    
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Notifications")) {
+                Section(header: Text("Notifications").foregroundColor(.white)) {
                     Toggle(isOn: $viewModel.notificationsEnabled) {
                         Text("Send Notifications")
                     }
+                    .tint(.blue)
                 }
             }
-            .navigationTitle("Settings")
+            .scrollContentBackground(.hidden)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("Settings")
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundColor(.white)
+                }
+            }
+            .customBackground()
         }
     }
 }
