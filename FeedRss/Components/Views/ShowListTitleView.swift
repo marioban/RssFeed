@@ -15,7 +15,8 @@ struct ShowListTitleView: View {
             Text(text)
                 .font(.title)
                 .bold()
-                .padding()
+                .padding(.top)
+                .padding(.horizontal)
         }
     }
 }

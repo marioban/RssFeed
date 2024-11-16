@@ -16,10 +16,11 @@ struct SplashScreen: View {
         VStack {
             if isActive {
                 MainTabView()
+                    .customBackground()
                     .transition(.slide)
             } else {
                 ZStack {
-                    LinearGradient(gradient: Gradient(colors: [Color.blue, Color.cyan]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                    LinearGradient(gradient: Gradient(colors: [Color(red: 0.059, green: 0.071, blue: 0.114), Color(red: 0.059, green: 0.071, blue: 0.114)]), startPoint: .topLeading, endPoint: .bottomTrailing)
                         .ignoresSafeArea()
                     
                     VStack {

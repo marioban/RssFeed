@@ -16,6 +16,7 @@ class RssFeed: Identifiable {
     var feedDescription: String?
     var imageUrl: String?
     var isFavorite: Bool = false
+    var viewCount: Int = 0
     
     var articles: [FeedArticle] = []
     

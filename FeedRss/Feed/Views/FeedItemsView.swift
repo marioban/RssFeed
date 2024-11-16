@@ -41,8 +41,18 @@ struct FeedItemsView: View {
                     .foregroundColor(.white)
                     .onAppear {
                         self.viewModel = FeedItemsViewModel(feed: feed, feedItems: feedItems, modelContext: modelContext)
+                        incrementViewCount(for: feed)
                     }
             }
+        }
+    }
+    
+    private func incrementViewCount(for feed: RssFeed) {
+        feed.viewCount += 1
+        do {
+            try modelContext.save()
+        } catch {
+            print("Failed to increment view count: \(error)")
         }
     }
 }
