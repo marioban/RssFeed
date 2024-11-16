@@ -19,14 +19,7 @@ struct FavoritesView: View {
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    Picker("", selection: $pickFavorite) {
-                        Text("Favorite Feeds").tag(0)
-                        Text("Favorite Articles").tag(1)
-                    }
-                    .pickerStyle(.segmented)
-                }
-                .padding()
+                FavoritesHeaderView(pickFavorite: $pickFavorite)
                 
                 if pickFavorite == 0 {
                     if favoriteFeeds.isEmpty {
