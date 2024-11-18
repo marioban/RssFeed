@@ -74,8 +74,8 @@ struct SearchFeedsView: View {
         }
     }
 }
-    
-    #Preview {
-        SearchFeedsView()
-    }
-    
+
+#Preview {
+    SearchFeedsView()
+}
+

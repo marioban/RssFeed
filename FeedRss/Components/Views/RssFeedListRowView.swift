@@ -19,8 +19,7 @@ struct RssFeedListRowView: View {
                         .scaledToFit()
                         .frame(width: 50, height: 50)
                 } placeholder: {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.3))
+                    PlaceholderView()
                         .frame(width: 25, height: 25)
                 }
             }

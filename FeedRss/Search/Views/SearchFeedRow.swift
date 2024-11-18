@@ -19,7 +19,10 @@ struct SearchFeedRow: View {
                     Button(action: {
                         viewModel.toggleFavorite(for: feed)
                     }) {
-                        Label("Add to favorites", systemImage: "star.fill")
+                        Label(
+                            feed.isFavorite ? "Remove from favorites" : "Add to favorites",
+                            systemImage: feed.isFavorite ? "star.slash" : "star.fill"
+                        )
                     }
                     
                     Button(action: {
