@@ -15,7 +15,7 @@ class SearchFeedsViewModel: ObservableObject {
     @Published var searchUrl: String = ""
     @Published var feedItems: [FeedArticle] = []
     @Published var recentFeeds: [RssFeed] = []
-    @Published var mostViewedFeeds: [RssFeed] = [] // For the carousel
+    @Published var mostViewedFeeds: [RssFeed] = [] 
     @Published var isSearching: Bool = false
     @Published var selectedFeed: RssFeed?
     
@@ -27,7 +27,6 @@ class SearchFeedsViewModel: ObservableObject {
         fetchMostViewedFeeds()
     }
     
-    // Fetch recent feeds
     func fetchRecentFeeds() {
         guard let modelContext = modelContext else { return }
         let fetchRequest = FetchDescriptor<RssFeed>(sortBy: [SortDescriptor(\.title)])
@@ -39,7 +38,6 @@ class SearchFeedsViewModel: ObservableObject {
         }
     }
     
-    // Fetch most viewed feeds for carousel
     func fetchMostViewedFeeds() {
         guard let modelContext = modelContext else { return }
         let fetchRequest = FetchDescriptor<RssFeed>(
@@ -53,7 +51,6 @@ class SearchFeedsViewModel: ObservableObject {
         }
     }
     
-    // Search for a new RSS feed
     func searchRssFeed() {
         guard let modelContext = modelContext, !searchUrl.isEmpty else { return }
         
@@ -69,7 +66,7 @@ class SearchFeedsViewModel: ObservableObject {
                     modelContext.insert(article)
                 }
                 
-                incrementViewCount(for: feed) // Increment view count when a feed is accessed
+                incrementViewCount(for: feed)
                 
                 self.selectedFeed = feed
                 self.feedItems = articles
@@ -81,7 +78,6 @@ class SearchFeedsViewModel: ObservableObject {
         }
     }
     
-    // Delete a feed
     func deleteFeed(_ feed: RssFeed) {
         guard let modelContext = modelContext else { return }
         modelContext.delete(feed)
@@ -93,7 +89,6 @@ class SearchFeedsViewModel: ObservableObject {
         }
     }
     
-    // Toggle favorite status
     func toggleFavorite(for feed: RssFeed) {
         guard let modelContext = modelContext else { return }
         feed.isFavorite.toggle()
@@ -104,18 +99,16 @@ class SearchFeedsViewModel: ObservableObject {
         }
     }
     
-    // Reset search bar content
     func resetSearchBar() {
         searchUrl = ""
     }
     
-    // Increment the view count for a feed
     func incrementViewCount(for feed: RssFeed) {
         guard let modelContext = modelContext else { return }
         feed.viewCount += 1
         do {
             try modelContext.save()
-            fetchMostViewedFeeds() // Refresh most viewed feeds
+            fetchMostViewedFeeds()
         } catch {
             print("Failed to increment view count: \(error)")
         }

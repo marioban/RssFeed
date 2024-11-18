@@ -37,7 +37,13 @@ struct SearchFeedsView: View {
                         ShowListTitleView(text: "Show latest searches")
                         
                         if viewModel.recentFeeds.isEmpty {
-                            FavoritesEmptyStateView(imageName: "magnifyingglass", message: "No recent feeds found.")
+                            Spacer()
+                            HStack{
+                                Spacer()
+                                
+                                FavoritesEmptyStateView(imageName: "magnifyingglass", message: "No recent feeds found.")
+                                Spacer()
+                            }
                         } else {
                             SearchFeedsListView(feeds: viewModel.recentFeeds, viewModel: viewModel)
                         }

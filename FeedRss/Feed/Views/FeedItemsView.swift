@@ -10,15 +10,13 @@ import SwiftUI
 struct FeedItemsView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel: FeedItemsViewModel?
+    @State private var refreshTrigger = false
     
     let feed: RssFeed
     let feedItems: [FeedArticle]
     
     var body: some View {
         ZStack {
-            Color(red: 0.059, green: 0.071, blue: 0.114)
-                .ignoresSafeArea()
-            
             if let viewModel = viewModel {
                 ScrollView {
                     LazyVStack(spacing: 16) {
@@ -35,7 +33,7 @@ struct FeedItemsView: View {
                     .padding(.vertical)
                 }
                 .navigationTitle("\(viewModel.feed.title) Articles")
-                .foregroundColor(.white) // Ensures text appears in white
+                .foregroundColor(.white)
             } else {
                 Text("Loading...")
                     .foregroundColor(.white)
@@ -45,6 +43,12 @@ struct FeedItemsView: View {
                     }
             }
         }
+        .id(refreshTrigger)
+        .onAppear {
+            incrementViewCount(for: feed)
+            refreshTrigger.toggle() 
+        }
+        .customBackground()
     }
     
     private func incrementViewCount(for feed: RssFeed) {

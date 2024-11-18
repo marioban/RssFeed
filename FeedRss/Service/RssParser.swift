@@ -22,15 +22,13 @@ final class RssParser: NSObject, XMLParserDelegate, RssParserProtocol {
     private var feedItems = [FeedArticle]()
     private var currentFeed: RssFeed
     private var currentElement = ""
-    private var parentElements = [String]() // Stack to track the current parent element
+    private var parentElements = [String]()
     
-    // Channel metadata properties
     private var channelTitle: String?
     private var channelLink: String?
     private var channelDescription: String?
     private var channelImageUrl: String?
     
-    // Temporary item properties
     private var currentTitle: String?
     private var currentLink: String?
     private var currentDescription: String?
@@ -54,7 +52,6 @@ final class RssParser: NSObject, XMLParserDelegate, RssParserProtocol {
             throw RssParsingError.parsingFailed
         }
         
-        // Update the feed with parsed channel metadata
         currentFeed.title = channelTitle ?? "Unknown Feed"
         currentFeed.feedDescription = channelDescription
         currentFeed.url = channelLink ?? url
@@ -62,8 +59,6 @@ final class RssParser: NSObject, XMLParserDelegate, RssParserProtocol {
         
         return (feed: currentFeed, articles: feedItems)
     }
-    
-    // MARK: - XMLParserDelegate
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?,
                 qualifiedName qName: String?, attributes attributeDict: [String: String]) {
