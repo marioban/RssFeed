@@ -32,7 +32,7 @@ struct HeaderRssFeed: View {
             if let description = feed.feedDescription {
                 Text(description)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(Color.white)
             }
         }
     }

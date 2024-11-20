@@ -13,6 +13,7 @@ struct ShowListTitleView: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(text)
+                .foregroundStyle(Color.white)
                 .font(.title)
                 .bold()
                 .padding(.top)

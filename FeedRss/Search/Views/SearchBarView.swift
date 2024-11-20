@@ -14,7 +14,7 @@ struct SearchBarView: View {
     
     var body: some View {
         HStack {
-            TextField("Enter rss", text: $rss, prompt: Text("Enter rss url").foregroundStyle(Color.primary).fontWeight(.light))
+            TextField("Enter rss", text: $rss, prompt: Text("Enter rss url").foregroundStyle(Color.white).fontWeight(.light))
                 .onSubmit(onSearch)
                 .autocapitalization(.none)
                 .keyboardType(.URL)
@@ -26,7 +26,7 @@ struct SearchBarView: View {
             Button(action: onSearch) {
                 Image(systemName: "magnifyingglass")
                     .fontWeight(.bold)
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(Color.white)
             }
         }
         .padding()
@@ -34,7 +34,7 @@ struct SearchBarView: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.primary, lineWidth: 4)
         )
-        .background(Color.secondary.opacity(0.4))
+        .background(Color.gray.opacity(0.4))
         .cornerRadius(10)
         .padding(.horizontal)
         .padding(.top)

@@ -32,7 +32,12 @@ struct FeedItemsView: View {
                     }
                     .padding(.vertical)
                 }
-                .navigationTitle("\(viewModel.feed.title) Articles")
+                .toolbar{
+                    ToolbarItem(placement: .principal) {
+                        Text("\(viewModel.feed.title) Articles")
+                    }
+                }
+                //.navigationTitle("\(viewModel.feed.title) Articles")
                 .foregroundColor(.white)
             } else {
                 Text("Loading...")
@@ -46,7 +51,7 @@ struct FeedItemsView: View {
         .id(refreshTrigger)
         .onAppear {
             incrementViewCount(for: feed)
-            refreshTrigger.toggle() 
+            refreshTrigger.toggle()
         }
         .customBackground()
     }

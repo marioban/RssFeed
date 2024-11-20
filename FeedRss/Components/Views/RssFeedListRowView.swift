@@ -28,12 +28,12 @@ struct RssFeedListRowView: View {
             VStack(alignment: .leading) {
                 Text(feed.title)
                     .font(.headline)
-                    .foregroundColor(.primary)
+                    .foregroundColor(.white)
                 
                 if let description = feed.feedDescription {
                     Text(description)
                         .font(.subheadline)
-                        .foregroundColor(.primary.opacity(0.7))
+                        .foregroundColor(.white)
                         .lineLimit(2)
                 }
             }
